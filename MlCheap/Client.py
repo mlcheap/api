@@ -1,9 +1,9 @@
 from typing import IO
 # Dict, Generator, Generic, List, TypeVar, Union
-from Api import Api
+from .Api import Api
 import secrets
-from env import *
-from Task import Task
+from .env import *
+from .Task import Task
 
 
 class Client:

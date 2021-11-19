@@ -1,7 +1,8 @@
 from requests.adapters import HTTPAdapter, Response, Retry
 import requests
 from typing import Dict, Generator, Generic, List, TypeVar, Union
-from env import *
+from .env import *
+
 
 class Api:
     """Internal Api reference for handling http operations"""
