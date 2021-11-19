@@ -2,7 +2,6 @@
 # from Project import Project
 # from Task import Text_Tagging
 #
-# LABELER_TEST_API = 'bf76eefd-8423-49e9-b63d-0f14bb615324'
 # project_name = 'p4'
 # labels_per_task = 3
 #
