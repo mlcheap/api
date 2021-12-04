@@ -1,12 +1,13 @@
+INSTALLATION
+Install sdk
+pip3 install MlCheap==0.1.5
+
 
 Mlcheap
 API
 18th November 2021
 OVERVIEW
 By mlcheap api you can upload your data, annotate them with high quality, check quality of labels, train model, and release your model. 
-INSTALLATION
-Install sdk
-pip3 install MlCheap==0.1.4
 
 Api
 Create project
