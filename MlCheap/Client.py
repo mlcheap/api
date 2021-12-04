@@ -14,63 +14,71 @@ class Client:
     def create_project(self, project):
         return self.api.post_request('create-project', body=project.to_dic())
 
+    def edit_project(self, project, project_id):
+        return self.api.put_request('edit-project', body=project.to_dic(), headers={"project_id": project_id})
+
     def get_all_projects(self):
         return self.api.get_request('all-projects')
 
-    def get_project(self, project_name):
-        return self.api.get_request('project', headers={'project_name': project_name})
+    def get_project(self, project_id):
+        return self.api.get_request('project', headers={'project_id': project_id})
 
-    def cancel_task(self, project_name, task_id):
-        return self.api.delete_request('task',
-                                       headers={'project_name': project_name},
+    def cancel_task(self, project_id, task_id):
+        return self.api.delete_request('cancel-task',
+                                       headers={'project_id': project_id},
                                        params={'task_id': task_id})
 
-    def get_task(self, project_name, task_id):
+    def get_task(self, project_id, task_id):
         return self.api.get_request('task',
-                                    headers={'project_name': project_name},
+                                    headers={'project_id': project_id},
                                     params={'task_id': task_id})
 
-    def get_all_tasks(self, project_name, status):
+    def get_all_tasks(self, project_id, status):
         return self.api.get_request('tasks',
-                                    headers={'project_name': project_name},
+                                    headers={'project_id': project_id},
                                     params={'status': status})
 
-    def get_tasks_count(self, project_name, status):
+    def get_tasks_count(self, project_id, status):
         return self.api.get_request('tasks-count',
-                                    headers={'project_name': project_name},
+                                    headers={'project_id': project_id},
                                     params={'status': status})
 
     def create_task(self,
-                    project_name: str,
+                    project_id: str,
                     task: Task):
         if task.unique_id is None:
             task.set_id(secrets.token_hex(8))
         return self.api.post_request('create-task',
-                                     headers={'project_name': project_name},
+                                     headers={'project_id': project_id},
                                      body=task.to_dic())
 
-    def all_labelers(self, project_name):
-        return self.api.get_request('all-labelers', headers={'project_name': project_name})
+    def all_labelers(self, project_id):
+        return self.api.get_request('all-labelers', headers={'project_id': project_id})
 
-    def add_labelers(self, project_name, emails):
-        return self.api.post_request('add-labelers', headers={'project_name': project_name},
+    def add_labelers(self, project_id, emails):
+        return self.api.post_request('add-labelers', headers={'project_id': project_id},
                                      body={"emails": emails})
 
-    def cancel_labeler(self, project_name, email):
-        return self.api.delete_request('cancel-labeler', headers={'project_name': project_name},
+    def cancel_labeler(self, project_id, email):
+        return self.api.delete_request('cancel-labeler', headers={'project_id': project_id},
                                        params={"email": email})
 
     def import_file(self,
-                    project_name: str,
                     file_url: str):
         body = {
             'file_url': file_url
         }
-        return self.api.post_request('import-file',
-                                     headers={'project_name': project_name}, body=body)
+        return self.api.post_request('file/import-file',
+                                     headers={}, body=body)
 
-    def upload_file(self, project_name: str, file: IO):
-        files = {"file": file}
-        return self.api.post_request('upload-file',
-                                     files=files,
-                                     headers={'project_name': project_name})
+    def upload_file(self, file_path):
+        with open(file_path, 'rb') as f:
+            files = [
+                ('file', ('adiban.png', f, 'image/png', {}))
+            ]
+            return self.api.post_request('file/upload-file',
+                                         files=files)
+
+    def download_file(self, file_id: str):
+        return self.api.get_request('file/download-file',
+                                    params={'file-id': file_id})

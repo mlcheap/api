@@ -19,8 +19,11 @@ class Api:
             "token": api_key,
         }
         self._headers_data = {
-            "Content-Type": "application/x-www-form-urlencoded",
+            'Content-Type': 'multipart/form-data',
+            # 'Content-Type': 'application/x-www-form-urlencoded',
             "token": api_key,
+            'accept-encoding': 'gzip, deflate, br',
+
         }
 
     @staticmethod
@@ -96,9 +99,11 @@ class Api:
         #     json = res.json()
         # else:
         #     self._raise_on_respose(res)
-        json = res.json()
-
-        return json
+        try:
+            json = res.json()
+            return json
+        except:
+            return res
 
     def get_request(self, endpoint, headers=None, params=None):
         """Generic GET Request Wrapper"""
@@ -130,6 +135,26 @@ class Api:
             _headers.update(headers)
         return self._api_request(
             "POST",
+            endpoint,
+            headers=_headers,
+            auth=self._auth,
+            body=body,
+            files=files,
+            data=data,
+        )
+
+    def put_request(self, endpoint, headers=None, body=None, files=None, data=None):
+        """Generic PUT Request Wrapper"""
+        if headers is None:
+            headers = dict()
+        if files is None:
+            _headers = self._headers.copy()
+        else:
+            _headers = self._headers_data.copy()
+        if headers:
+            _headers.update(headers)
+        return self._api_request(
+            "PUT",
             endpoint,
             headers=_headers,
             auth=self._auth,
