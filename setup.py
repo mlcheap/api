@@ -5,7 +5,7 @@ install_requires = ["requests>=2.25.0", "urllib3>=1.26.0"]
 setup(
     name='MlCheap',  # How you named your package folder (MyLib)
     packages=['MlCheap'],  # Chose the same as "name"
-    version='0.1.5',  # Start with a small number and increase it with every change you make
+    version='0.1.6',  # Start with a small number and increase it with every change you make
     license='MIT',  # Chose a license from here: https://help.github.com/articles/licensing-a-repository
     description='MlCheap help you to easily label your data, train your model and publish it',
     # Give a short description about your library
