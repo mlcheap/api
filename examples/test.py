@@ -62,19 +62,20 @@ dir_path = os.path.dirname(os.path.realpath(__file__))
 
 # create task
 
-# project_id = '61ab262a7057be733d6cc844'
-# text_tagging_task = Text_Tagging(
-#     text="We are looking for a cost analyst to help us audit our expenses and find ways to make our operations more " +
-#          "cost-efficient. You’ll be the go-to person for cost analysis and you’ll get to prepare reports to help " +
-#          "management make better decisions. To do this job well, we’d like you to be well-versed in data and " +
-#          "financial analysis, and have strong attention to detail. Ultimately, your job will be an integral part of " +
-#          "our efforts to ensure profitability and business success.",
-#     all_tags=["data analyst", "financial", "business", "high skill"],
-#     preferred_tags=["financial", "business"],
-#     question="tags?",
-#     callback="google.com")
-#
-# response = client.create_task(project_id=project_id, task=text_tagging_task)
+for i in range(100):
+    project_id = '61ab262a7057be733d6cc844'
+    text_tagging_task = Text_Tagging(
+        text="We are looking for a cost analyst to help us audit our expenses and find ways to make our operations more " +
+             "cost-efficient. You’ll be the go-to person for cost analysis and you’ll get to prepare reports to help " +
+             "management make better decisions. To do this job well, we’d like you to be well-versed in data and " +
+             "financial analysis, and have strong attention to detail. Ultimately, your job will be an integral part of " +
+             "our efforts to ensure profitability and business success.",
+        all_tags=["data analyst", "financial", "business", "high skill"],
+        preferred_tags=["financial", "business"],
+        question="tags?",
+        callback="google.com")
+
+    response = client.create_task(project_id=project_id, task=text_tagging_task)
 # print(response)
 
 # the output must be like this
@@ -417,9 +418,9 @@ dir_path = os.path.dirname(os.path.realpath(__file__))
 
 # add cancel labeler
 
-project_id = '61ab262a7057be733d6cc844'
-response = client.cancel_labeler(project_id, 'amir@test.com')
-print(response)
+# project_id = '61ab262a7057be733d6cc844'
+# response = client.cancel_labeler(project_id, 'amir@test.com')
+# print(response)
 
 # output sample
 # {
@@ -440,9 +441,9 @@ print(response)
 
 # get all labelers
 
-project_id = '61ab262a7057be733d6cc844'
-response = client.all_labelers(project_id)
-print(response)
+# project_id = '61ab262a7057be733d6cc844'
+# response = client.all_labelers(project_id)
+# print(response)
 
 # output sample
 # {

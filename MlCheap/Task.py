@@ -62,7 +62,7 @@ class Task:
         }
         if self.unique_id:
             dic.update({'_id': self.unique_id})
-        print(dic)
+        # print(dic)
         return dic
 
     def set_id(self, unique_id):

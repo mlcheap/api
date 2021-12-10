@@ -66,6 +66,17 @@ class Api:
             )
 
             return res
+        except requests.exceptions.HTTPError as errh:
+            print("Http Error:", errh)
+        except requests.exceptions.ConnectionError as errc:
+            print("Error Connecting:", errc)
+        except requests.exceptions.Timeout as errt:
+            print("Timeout Error:", errt)
+        except requests.exceptions.RequestException as err:
+            print("OOps: Something Else", err)
+        except Exception as err:
+            raise Exception(err) from err
+
         except Exception as err:
             raise Exception(err) from err
 
