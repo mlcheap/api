@@ -19,11 +19,8 @@ class Api:
             "token": api_key,
         }
         self._headers_data = {
-            'Content-Type': 'multipart/form-data',
-            # 'Content-Type': 'application/x-www-form-urlencoded',
+            # "Content-Type": "application/x-www-form-urlencoded",
             "token": api_key,
-            'accept-encoding': 'gzip, deflate, br',
-
         }
 
     @staticmethod
@@ -53,7 +50,11 @@ class Api:
         try:
             params = params or {}
             body = body or {}
-
+            print("headers", headers)
+            print("files", files)
+            print("body", body)
+            print("data", data)
+            print("method", method)
             res = https.request(
                 method=method,
                 url=url,
@@ -66,17 +67,6 @@ class Api:
             )
 
             return res
-        except requests.exceptions.HTTPError as errh:
-            print("Http Error:", errh)
-        except requests.exceptions.ConnectionError as errc:
-            print("Error Connecting:", errc)
-        except requests.exceptions.Timeout as errt:
-            print("Timeout Error:", errt)
-        except requests.exceptions.RequestException as err:
-            print("OOps: Something Else", err)
-        except Exception as err:
-            raise Exception(err) from err
-
         except Exception as err:
             raise Exception(err) from err
 
@@ -104,17 +94,16 @@ class Api:
         """Generic HTTP request method with error handling."""
 
         url = f"{self.base_api_url}/{self.version}/{endpoint}"
+
         res = self._http_request(method, url, headers, auth, params, body, files, data)
         # json = None
         # if res.status_code == 200:
         #     json = res.json()
         # else:
         #     self._raise_on_respose(res)
-        try:
-            json = res.json()
-            return json
-        except:
-            return res
+        json = res.json()
+
+        return json
 
     def get_request(self, endpoint, headers=None, params=None):
         """Generic GET Request Wrapper"""
@@ -155,7 +144,7 @@ class Api:
         )
 
     def put_request(self, endpoint, headers=None, body=None, files=None, data=None):
-        """Generic PUT Request Wrapper"""
+        """Generic POST Request Wrapper"""
         if headers is None:
             headers = dict()
         if files is None:

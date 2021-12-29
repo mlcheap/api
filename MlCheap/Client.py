@@ -14,6 +14,13 @@ class Client:
     def create_project(self, project):
         return self.api.post_request('create-project', body=project.to_dic())
 
+    def create_class(self, project_id, _class):
+        return self.api.post_request('create-class', body={**_class.to_dic(), "project_id": project_id})
+
+    def create_classes(self, project_id, classes):
+        return self.api.post_request('create-classes', body={"project_id": project_id,
+                                                             "classes": [_class.to_dic() for _class in classes]})
+
     def edit_project(self, project, project_id):
         return self.api.put_request('edit-project', body=project.to_dic(), headers={"project_id": project_id})
 
@@ -22,6 +29,14 @@ class Client:
 
     def get_project(self, project_id):
         return self.api.get_request('project', headers={'project_id': project_id})
+
+    def get_class(self, project_id, class_id):
+        return self.api.get_request('class', headers={'project_id': project_id}, params={'class_id': class_id,
+                                                                                         })
+
+    def get_all_classes(self, project_id):
+        return self.api.get_request('classes',
+                                    headers={'project_id': project_id})
 
     def cancel_task(self, project_id, task_id):
         return self.api.delete_request('cancel-task',
@@ -72,12 +87,11 @@ class Client:
                                      headers={}, body=body)
 
     def upload_file(self, file_path):
-        with open(file_path, 'rb') as f:
-            files = [
-                ('file', ('adiban.png', f, 'image/png', {}))
-            ]
-            return self.api.post_request('file/upload-file',
-                                         files=files)
+        files = {
+            "document":  ('Germany.png', open(file_path, "rb"), 'image/png')
+        }
+        return self.api.post_request('file/upload-file',
+                                     files=files)
 
     def download_file(self, file_id: str):
         return self.api.get_request('file/download-file',

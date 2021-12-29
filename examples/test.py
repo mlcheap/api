@@ -1,9 +1,11 @@
-from MlCheap.Client import Client
-from MlCheap.Project import Project
-from MlCheap.Task import Text_Tagging
 import os
+from MlCheap.Client import Client
+from MlCheap.LabelClass import LabelClass
+from MlCheap.Task import Task
+from MlCheap.Project import Project
 
 LABELER_TEST_API = 'e2fcd22b-4c71-4c37-a140-39835933edbe'
+# LABELER_TEST_API = 'bdb9102d-f422-48e3-a627-c61e0de64c5f'
 # LABELER_TEST_API = 'bf76eefd-8423-49e9-b63d-0f14bb615324'
 
 client = Client(LABELER_TEST_API)
@@ -12,7 +14,7 @@ dir_path = os.path.dirname(os.path.realpath(__file__))
 # @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 # upload a file
 
-# icon_path = "1.jpg"
+# icon_path = "data/Germany.png"
 # file_path = os.path.join(dir_path, icon_path)
 # response = client.upload_file(file_path)
 # print(response)
@@ -51,8 +53,8 @@ dir_path = os.path.dirname(os.path.realpath(__file__))
 
 # project_name = 'p12'
 # labels_per_task = 3
-# project = Project(project_name, labels_per_task)
-# print("edit a project", client.edit_project(project, "61ab262a7057be733d6cc844"))
+project = Project(icon_id="61cb8ac57a301b43ebc16ed5")
+print("edit a project", client.edit_project(project, "61c4d33e947f0c5cae56ee24"))
 
 # the output must be in dictionary format like this
 # {'data': {'icon_id': '', 'labels_per_task': 3,
@@ -62,20 +64,20 @@ dir_path = os.path.dirname(os.path.realpath(__file__))
 
 # create task
 
-for i in range(100):
-    project_id = '61ab262a7057be733d6cc844'
-    text_tagging_task = Text_Tagging(
-        text="We are looking for a cost analyst to help us audit our expenses and find ways to make our operations more " +
-             "cost-efficient. You’ll be the go-to person for cost analysis and you’ll get to prepare reports to help " +
-             "management make better decisions. To do this job well, we’d like you to be well-versed in data and " +
-             "financial analysis, and have strong attention to detail. Ultimately, your job will be an integral part of " +
-             "our efforts to ensure profitability and business success.",
-        all_tags=["data analyst", "financial", "business", "high skill"],
-        preferred_tags=["financial", "business"],
-        question="tags?",
-        callback="google.com")
-
-    response = client.create_task(project_id=project_id, task=text_tagging_task)
+# for i in range(100):
+#     project_id = '61ab262a7057be733d6cc844'
+#     text_tagging_task = Text_Tagging(
+#         text="We are looking for a cost analyst to help us audit our expenses and find ways to make our operations more " +
+#              "cost-efficient. You’ll be the go-to person for cost analysis and you’ll get to prepare reports to help " +
+#              "management make better decisions. To do this job well, we’d like you to be well-versed in data and " +
+#              "financial analysis, and have strong attention to detail. Ultimately, your job will be an integral part of " +
+#              "our efforts to ensure profitability and business success.",
+#         all_tags=["data analyst", "financial", "business", "high skill"],
+#         preferred_tags=["financial", "business"],
+#         question="tags?",
+#         callback="google.com")
+#
+#     response = client.create_task(project_id=project_id, task=text_tagging_task)
 # print(response)
 
 # the output must be like this
@@ -178,7 +180,7 @@ for i in range(100):
 # @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
 # get all projects
-
+# print('get all projects')
 # response = client.get_all_projects()
 # print(response)
 
@@ -441,7 +443,7 @@ for i in range(100):
 
 # get all labelers
 
-# project_id = '61ab262a7057be733d6cc844'
+# project_id = '61ab582687d3d06eba82c969'
 # response = client.all_labelers(project_id)
 # print(response)
 
@@ -460,3 +462,104 @@ for i in range(100):
 #     "message": "successful",
 #     "meta": {}
 # }
+
+# @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+# create Class
+# import json
+#
+# en_classes_file = open('examples/data/en_classes.json', encoding="utf8")
+# en_classes = json.load(en_classes_file)
+#
+# project_id = '61c4d33e947f0c5cae56ee24'
+# new_classes = []
+# for idx, _class in enumerate(en_classes["data"]):
+#     name = _class["title"]
+#     metadata = {"index": _class["index"],
+#                 "Unnamed: 0": _class["Unnamed: 0"],
+#                 "description": _class["description"],
+#                 "alternates": _class["alternates"],
+#                 "locale": _class["locale"],
+#                 "external_id": _class["external_id"],
+#                 "ISCO_code": _class["ISCO_code"]
+#                 }
+#     unique_id = _class["occupation_id"]
+#     label_class = LabelClass(name=name, metadata=metadata, unique_id=unique_id)
+#     new_classes.append(label_class)
+# response = client.create_classes(project_id, new_classes)
+# print(response)
+
+# @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+# get Class
+
+# project_id = '61c4d33e947f0c5cae56ee24'
+# class_id = '61c9fcfe64af225e6037ecac'
+# response = client.get_class(project_id, class_id)
+# print(response)
+
+# @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+
+# get all Classes
+# project_id = '61c4d33e947f0c5cae56ee24'
+# response = client.get_all_classes(project_id)
+# print(response)
+
+# @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+
+# create custom data sample
+
+
+# create custom esco project
+
+# project_name = 'esco-en6'
+# labels_per_task = 3
+# model_id = "esco-en"
+# project = Project(project_name, labels_per_task,
+#                   metadata={"all_tags": en_list}, model_id=model_id)
+# print(client.create_project(project))
+
+
+# create esco task
+
+# class EscoOccupationData(Data):
+#     def __init__(self, title, description):
+#         name = "esco-occupations-data"
+#         super(EscoOccupationData, self).__init__(name)
+#         self.title = title
+#         self.description = description
+#
+#     def __to_dic__(self):
+#         return {'title': self.title, "description": self.description}
+#
+#
+# class EscoOccupationLabel(Label):
+#     def __init__(self):
+#         name = "esco-occupation-label"
+#         question = ""
+#         super(EscoOccupationLabel, self).__init__(name)
+#         self.all_tags = "{{project.metadata.all_tags}}"
+#         self.question = question
+#         self.ai_predicts = "{{config:{topN=5}}}"
+#
+#     def __to_dic__(self):
+#         return {'all-tags': self.all_tags,
+#                 'question': self.question,
+#                 'ai-predicts': self.ai_predicts}
+
+
+# class EscoOccupationTask(Task):
+#
+#     def __init__(self, title, desciption):
+#         super(EscoOccupationTask, self).__init__(ESCO_TEXT_TAGGING_TYPE)
+#         self.data_text = EscoOccupationData(title, desciption)
+#         self.label_tagging = EscoOccupationLabel()
+#
+#     def get_items(self):
+#         return [self.data_text.to_dic(), self.label_tagging.to_dic()]
+#
+# for i in range(len(sample1)):
+#     project_id = '61c4d33e947f0c5cae56ee24'
+#     text_tagging_task = EscoOccupationTask(sample1[i]['job_title'],
+#                                            sample1[i]['job_description'])
+#
+#     response = client.create_task(project_id=project_id, task=text_tagging_task)
+#     print(response)

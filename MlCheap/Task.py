@@ -46,7 +46,7 @@ class LabelTagging(Label):
 
 
 class Task:
-    def __init__(self, task_type, callback, unique_id):
+    def __init__(self, task_type, callback=None, unique_id=None):
         self.task_type = task_type
         self.callback = callback
         self.unique_id = unique_id
@@ -62,7 +62,7 @@ class Task:
         }
         if self.unique_id:
             dic.update({'_id': self.unique_id})
-        # print(dic)
+        print(dic)
         return dic
 
     def set_id(self, unique_id):
@@ -78,3 +78,4 @@ class Text_Tagging(Task):
 
     def get_items(self):
         return [self.data_text.to_dic(), self.label_tagging.to_dic()]
+
