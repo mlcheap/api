@@ -47,14 +47,15 @@ class Api:
         https.mount("http://", adapter)
         https.mount("https://", adapter)
 
+
         try:
             params = params or {}
             body = body or {}
-            print("headers", headers)
-            print("files", files)
-            print("body", body)
-            print("data", data)
-            print("method", method)
+            # print("headers", headers)
+            # print("files", files)
+            # print("body", body)
+            # print("data", data)
+            # print("method", method)
             res = https.request(
                 method=method,
                 url=url,

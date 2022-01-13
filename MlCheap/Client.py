@@ -9,7 +9,7 @@ from .Task import Task
 class Client:
     def __init__(self,
                  api_key):
-        self.api = Api(api_key=api_key, api_instance_url=LABELER_BASE_URL)
+            self.api = Api(api_key=api_key, api_instance_url=LABELER_BASE_URL)
 
     def create_project(self, project):
         return self.api.post_request('create-project', body=project.to_dic())
